@@ -11,6 +11,18 @@
     <br>
     {{message}}
     <br>
+    {{#if edit_id}}
+    <h3>Update</h3>
+    <form action="/update_book/{{edit_id}}" method="post">
+        <label for="title">Title</label>
+        <input type="text" name="title" required="required" value="{{edit_book.title}}"> 
+        <br>
+        <label for="author">Author</label>
+        <input type="text" name="author" required="required" value="{{edit_book.author}}">
+        <input type="submit">
+    </form>
+    <br><br>
+    {{else}}
     <h3>Create</h3>
     <form action="/store_book" method="post">
         <label for="title">Title</label>
@@ -20,10 +32,13 @@
         <input type="text" name="author" required="required">
         <input type="submit">
     </form>
-    <br>
-    {{#each employees}}
+    <br><br>
+    {{/if}}
+
+
+    {{#each books}}
 <ul>
-    <li>{{this.title}} - {{this.author}}</li>
+    <li>{{this.title}} - {{this.author}} <a href="/?edit_id={{this._id}}">Edit</a> <a href="/?delete_id={{this._id}}" onclick="return confirm()">Delete</a></li>
 </ul>
     {{/each}}
 </body>
